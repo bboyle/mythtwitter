@@ -1,0 +1,16 @@
+#summary API options for interacting with MythTV
+
+= Introduction =
+
+MythTwitter must interface with both MythTV and Twitter.
+This page lists items of interest for MythTV integration.
+
+= Details =
+
+ * Direct database access
+ * HTTP (MythWeb)
+ * Command line:
+
+== MythTV status ==
+ # HTTP: localhost:6544/xml
+ # Command line: {{mythtv-status}}
