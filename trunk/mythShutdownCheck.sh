@@ -1,18 +1,18 @@
-#!/bin/sh
+#
+# MythShutdownCheck
+#
+# checks to see if any other user is
+# logged in before idle shutdown
+#
+# returns "1" if yes, stopping shutdown
+# returns "0" if ok to shutdown
+#
 
-# Check to see if anyone is currently logged in. Return zero if not and 1 if so.
-# Echoed text appears in log file.
-# It can be removed and --quiet added to the grep command
-# once you are satisfied that mythTV is working properly
+if last | head | grep -q "pts/.*still logged in"   # check for active *remote* login?
 
-# http://www.mythtv.org/wiki/ACPI_Wakeup#Integrate_into_mythTV_2
+then
+	exit 1
 
-if
-	last | grep "still logged in"
-	then
-		echo Someone is still logged in! Don\'t shut down!
-		exit 1
-	else
-		echo Noone is logged in, ok to shut down.
-		exit 0
+else
+	exit 0
 fi
