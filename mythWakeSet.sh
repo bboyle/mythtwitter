@@ -5,10 +5,5 @@
 
 # http://www.mythtv.org/wiki/ACPI_Wakeup#Integrate_into_mythTV_2
 
-# We pass the local time that we want to wake up as --date "$1"
-# we indicate we want it reported as UTC time with -u, and
-# we indicate we want it reported as seconds since epoch with +%s.
-SECS=`date -u --date $1 +%s`
-
 echo 0 > /sys/class/rtc/rtc0/wakealarm      #this clears your alarm
-echo $SECS > /sys/class/rtc/rtc0/wakealarm     #this writes your alarm
+echo $1 > /sys/class/rtc/rtc0/wakealarm     #this writes your alarm
