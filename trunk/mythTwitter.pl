@@ -19,6 +19,28 @@
 
 =cut
 
+=head2 setup (mythbuntu)
+
+	cp mythTwitter.pl /usr/bin
+	sudo chmod a+x /usr/bin/mythTwitter.pl
+
+	# change the twitter username/password constants
+	# you need a twitter account for this, of course
+	sudo nano /usr/bin/mythTwitter.pl
+
+	# install dependencies
+	sudo apt-get install libnet-twitter-perl
+	
+	# setup log file
+	sudo touch /var/log/mythtv/mythTwitter.log
+	sudo chgrp mythtv /var/log/mythtv/mythTwitter.log
+	sudo chmod g+w /var/log/mythtv/mythTwitter.log
+
+	# test
+	sudo mythTwitter.pl
+
+=cut
+
 use strict;
 
 
@@ -113,8 +135,9 @@ for (@$timeline) {
 
 	# ignore @replies and only read messages "want ... watch"
 	if ($user ne TWITTER_USERNAME and $status =~ m/want.*watch.*/) {
-		(my $title = $status) =~ s/^.*watch\s*//;
-		$twitter->update(sprintf('@%s you want to watch "%s"?', $user, $title));
+		(my $title = $status) =~ s/^.*watch\s*([^-\x{2014}]*).*$/$1/;
+		$title =~ s/\s+$//;
+		$twitter->update(sprintf('@%s you want to watch %s?', $user, $title));
 		system('echo "FOUND: ' . $title . "\n" . '" >> /var/log/mythtv/mythTwitter.log');
 	}
 
