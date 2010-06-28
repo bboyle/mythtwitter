@@ -97,7 +97,7 @@ Scheduled Recordings:
 # get next recording from status
 my $status = `mythtv-status`;
 $status =~ s/^.*Scheduled Recordings:.(.*?\)).*$/$1/s;
-system('echo "Next recording: ' . $status . "\n" . '" > /var/log/mythtv/mythTwitter.log');
+system('echo "Next recording: ' . $status . "\n" . '" >> /var/log/mythtv/mythTwitter.log');
 $twitter->update(sprintf('Next recording: %s', $status));
 
 =pod
