@@ -52,7 +52,7 @@ use constant TWITTER_PASSWORD	=> '<PASSWORD>';
 
 # MODULES
 use Net::Twitter;
-use HTTP::Date;
+use POSIX qw( strftime );
 
 
 # connect to twitter
@@ -68,8 +68,8 @@ my %args = (
 	since	=> `head -n 1 /var/log/mythtv/mythTwitter.log`
 );
 my $timeline = $twitter->friends_timeline(\%args);
-my $time = time2str;
-system('echo "' . $time . "\n" . '" > /var/log/mythtv/mythTwitter.log');
+system('echo "' . strftime("%Y-%m-%d", gmtime) . "\n" . '" > /var/log/mythtv/mythTwitter.log');
+
 
 =pod
 mythtv-status outputs:
