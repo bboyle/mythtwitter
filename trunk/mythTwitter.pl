@@ -47,8 +47,10 @@ use strict;
 # CONSTANTS
 
 # twitter username and password
-use constant TWITTER_USERNAME	=> '<USERNAME>';
-use constant TWITTER_PASSWORD	=> '<PASSWORD>';
+use constant CONSUMER_KEY			=> '<CONSUMER_KEY>';
+use constant CONSUMER_SECRET		=> '<CONSUMER_SECRET>';
+use constant ACCESS_TOKEN			=> '<ACCESS_TOKEN>';
+use constant ACCESS_TOKEN_SECRET	=> '<ACCESS_TOKEN_SECRET>';
 
 # MODULES
 use Net::Twitter;
@@ -56,8 +58,14 @@ use POSIX qw( strftime );
 
 
 # connect to twitter
-my $twitter = Net::Twitter->new(username => TWITTER_USERNAME, password => TWITTER_PASSWORD);	
-
+# help? http://github.com/semifor/Net-Twitter/wiki/Net::Twitter-and-the-death-of-Basic-Authentication
+my $twitter = Net::Twitter->new(
+    traits              => [qw/API::REST OAuth/],
+    consumer_key        => CONSUMER_KEY,
+    consumer_secret     => CONSUMER_SECRET,
+    access_token        => ACCESS_TOKEN,
+    access_token_secret => ACCESS_TOKEN_SECRET,
+);
 # test update
 # $twitter->update("Test");
 
@@ -134,7 +142,7 @@ for (@$timeline) {
 	system('echo "' . $status . "\n" . '" >> /var/log/mythtv/mythTwitter.log');
 
 	# ignore @replies and only read messages "want ... watch"
-	if ($user ne TWITTER_USERNAME and $status =~ m/want.*watch.*/) {
+	if ($status =~ m/want.*watch.*/) {
 		(my $title = $status) =~ s/^.*watch\s*([^-\x{2014}]*).*$/$1/;
 		$title =~ s/\s+$//;
 		$twitter->update(sprintf('@%s you want to watch %s?', $user, $title));
