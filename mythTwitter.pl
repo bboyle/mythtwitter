@@ -141,8 +141,8 @@ for (@$timeline) {
 	$status = sprintf '%s: %s', $user, $_->{text};
 	system('echo "' . $status . "\n" . '" >> /var/log/mythtv/mythTwitter.log');
 
-	# ignore @replies and only read messages "want ... watch"
-	if ($status =~ m/want.*watch.*/) {
+	# ignore @replies and only read messages "want to watch"
+	if ($status =~ m/want\s+to\s+watch.*/) {
 		(my $title = $status) =~ s/^.*watch\s*([^-\x{2014}]*).*$/$1/;
 		$title =~ s/\s+$//;
 		$twitter->update(sprintf('@%s you want to watch %s?', $user, $title));
