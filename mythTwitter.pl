@@ -47,10 +47,10 @@ use strict;
 # CONSTANTS
 
 # twitter username and password
-use constant CONSUMER_KEY			=> '<CONSUMER_KEY>';
-use constant CONSUMER_SECRET		=> '<CONSUMER_SECRET>';
-use constant ACCESS_TOKEN			=> '<ACCESS_TOKEN>';
-use constant ACCESS_TOKEN_SECRET	=> '<ACCESS_TOKEN_SECRET>';
+use constant CONSUMER_KEY        => '<CONSUMER_KEY>';
+use constant CONSUMER_SECRET     => '<CONSUMER_SECRET>';
+use constant ACCESS_TOKEN        => '<ACCESS_TOKEN>';
+use constant ACCESS_TOKEN_SECRET => '<ACCESS_TOKEN_SECRET>';
 
 # MODULES
 use Net::Twitter;
