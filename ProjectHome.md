@@ -1,0 +1,1 @@
+Intent is to create a twitter bot that tweets schedules and other information, and will read tweets of users it is following scanning for possible recordings to schedule.
